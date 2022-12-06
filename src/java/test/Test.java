@@ -35,7 +35,7 @@ import util.Util;
 public class Test {
 
     public static void main(String[] args) {
-       // HibernateUtil.getSessionFactory().openSession();
+        HibernateUtil.getSessionFactory().openSession();
         AdminService ad = new AdminService();
         CategorieService ca = new CategorieService();
         ClientService cl = new ClientService();

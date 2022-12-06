@@ -183,7 +183,7 @@
                 %>
                 <a href="panier.jsp"> <i class="fa fa-shopping-cart fa_custom fa-2x"> <%= n%></i></a>
 
-                <a class="active" href="#home">Home</a>
+                <a class="active" href="home.jsp">Home</a>
                 <a href="#news">News</a>
                 <a href="#contact">Contact</a>
                 <a href="#about">About</a>
