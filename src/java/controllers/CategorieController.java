@@ -66,15 +66,30 @@ public class CategorieController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        String nom = request.getParameter("nom");
-
+       String categorie = request.getParameter("categorie");
         CategorieService mr = new CategorieService();
-Categorie m = new Categorie(nom);
+        
+      if(categorie.equalsIgnoreCase("nulle")){
+       Categorie m = new Categorie(nom);
        boolean b = mr.create(m);
+     
        if(b){
        
         List<Categorie> liste_mr = mr.findAll();
         request.getSession().setAttribute("liste_mr", liste_mr);
        }
+      }else{
+            
+          Categorie m2 = new Categorie(nom,mr.findByNom(categorie));
+       boolean b2 = mr.create(m2);
+     
+       if(b2){
+       
+        List<Categorie> liste_mr = mr.findAll();
+        request.getSession().setAttribute("liste_mr", liste_mr);
+       }
+          
+      }
         request.getRequestDispatcher("categories.jsp").forward(request, response);
     }
 

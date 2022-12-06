@@ -1,3 +1,8 @@
+<%-- 
+    Document   : loginClient
+    Created on : 17 nov. 2022, 18:14:04
+    Author     : HP
+--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -33,7 +38,7 @@ h2 {
   font-weight: 600;
   text-transform: uppercase;
   display:inline-block;
-  margin: 40px 8px 10px 8px;
+  margin: 40px 8px 10px 8px; 
   color: #cccccc;
 }
 
@@ -44,7 +49,7 @@ h2 {
 .wrapper {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column; 
   justify-content: center;
   width: 100%;
   min-height: 100%;
@@ -165,7 +170,6 @@ input[type=password] {
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
-
 input[type=text]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
@@ -285,7 +289,7 @@ input[type=text]:placeholder {
 
 *:focus {
     outline: none;
-}
+} 
 
 #icon {
   width:60%;
@@ -298,13 +302,14 @@ input[type=text]:placeholder {
 </head>
 
 <body>
+  
     
-        
  <<div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
-    <h1>Admin</h1>
+    <h1>Authentification</h1>
     <h2 class="active"> Sign In </h2>
+  
     
 
     <!-- Icon -->
@@ -313,26 +318,30 @@ input[type=text]:placeholder {
     </div>
 
     <!-- Login Form -->
-    <form action="AuthentificationAdmin" method="POST">
+    <form action="Authentification" method="post">  
       <input type="text" id="email" class="fadeIn second" name="email" placeholder="email">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
-     <input type="submit" class="fadeIn fourth" value="Log In">
+      <input type="submit" class="fadeIn fourth" value="Log In">
       <tr>
                         <%
                             if(request.getParameter("msg")!=null){%>
                         <td><h3><%= request.getParameter("msg") %></h3></td>
                         <%}%>
                     </tr>
-    </form>
+                    </form>
+    
 
     <!-- Remind Passowrd -->
     <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
+      <a class="underlineHover" href="#">Forgot Password?</a><br>
+      
+      
+      <a href="Inscription.jsp">Sign up </a>
     </div>
 
   </div>
 </div>
-
+ 
 </body>
 
 </html>

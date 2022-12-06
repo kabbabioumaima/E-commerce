@@ -18,7 +18,8 @@ import javax.persistence.NamedNativeQuery;
  * @author hp
  */
 @Entity
-@NamedNativeQuery(name = "findProfils", query =  "select distinct(DType) from user")
+
+
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
@@ -28,14 +29,25 @@ public class User {
     protected String email;
     protected String password;
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    protected String role;
+
     public User() {
     }
 
-    public User(String email, String password) {
+    public User(String email, String password, String role) {
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
+   
     public int getId() {
         return id;
     }

@@ -19,6 +19,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="produit.css" rel="stylesheet" type="text/css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link rel="stylesheet" href="styles.css" />
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
             * {
@@ -168,8 +171,8 @@
                 padding: 8px;
                 background-color: #8DB4D8;
                 color: #fff;
-                
-               
+
+
             }
 
             .produit_section #see_produit td {
@@ -274,7 +277,7 @@
                 outline: none;
                 border: 1px solid #5987B2;
                 cursor: pointer;
-                
+
                 font-size: 17px;
                 background-color: #CCE6FF;
             }
@@ -682,136 +685,212 @@
                 font-weight: 500;
                 margin: 0px 15px 0px 0px;
             }
+            .bg-info {
+            width : 100%;
+            background: url("bac.jpg");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+        }
 
         </style>
     </head>
     <body>
-        <div class="produit_section">
-            <div class="produit_tab">
-                <h1>Nos Produits</h1>
-                <div class="produit_tab_inner">
-                    <button class="t_btn_tablinks" onclick="produitFunc(event, 'see_produit')"id="t_defaultOpen" >Liste
-                        <i class="fas fa-info-circle"></i>
-                    </button>
-                    <button class="t_btn_tablinks" onclick="produitFunc(event, 'add_produit')">Add
-                        <i class="fas fa-plus-circle"></i>
-                    </button>
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar -->
+            <div class="bg-white" id="sidebar-wrapper">
+                <div class="sidebar-heading text-dark text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom"><i
+                        class="fas fa-user-secret me-2"></i>Espace Admin </div>
+                <div class="list-group list-group-flush my-3">
+                    <a href="dashboard.jsp" class="list-group-item text-dark list-group-item-action bg-transparent second-text active"><i
+                            class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
 
+                    <a href="produits.jsp" class="list-group-item text-dark list-group-item-action bg-transparent second-text fw-bold"><i
+                            class="fas fa-laptop"></i>Produits</a>
+
+                    <a href="marques.jsp" class="list-group-item text-dark list-group-item-action bg-transparent second-text fw-bold"><i
+                            class="fas fa-laptop"></i>Marques</a>
+                    <a href="categories.jsp" class="list-group-item text-dark list-group-item-action bg-transparent second-text fw-bold"><i
+                            class="fas fa-paperclip me-2"></i>Catégories</a>
+                            <a href="commandes.jsp" class="list-group-item text-dark list-group-item-action bg-transparent second-text fw-bold"><i
+                        class="fas fa-shopping-cart me-2"></i>Commandes</a>
+
+                    <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
+                            class="fas fa-power-off me-2"></i>Logout</a>
                 </div>
             </div>
-            <!-- view produit section start  ======================================-->
-            <div id="see_produit" class="produit_tabcontent">
-                <div class="produit_search">
-                    <input type="text" class="search_input" placeholder="Chercher produit...">
-                </div>
-                <table>
-                    <tr>
-                        <th width="50px">Id</th>
-                        <th width="100px">Image</th>
-                        <th width="100px">Nom</th>
-                        <th width="100px">Designation</th>
-                        <th width="100px">Prix</th>
-                        <th width="80px">Unite</th>
-                        <th width="100px">Description</th>
-                        <th width="100px">Marque</th>
-                        <th width="100px">Categorie</th>
-                        <th width="100px">Supprimer</th>
-                    </tr>
-                    <tbody>
-                        <%
-                            ProduitService es = new ProduitService();
-                            for (Produit e : es.findAll()) {
-                        %>
-                        <tr>
-                            <td><%= e.getId()%></td>
-                            <td> <img src="<%="images\\" + e.getImage()%>" alt="<%= e.getNom()%>" /></td>
-                            <td><%= e.getNom()%></td>
-                            <td><%= e.getDesignation()%></td>
-                            <td><%= e.getPrix()%></td>
-                            <td><%= e.getUnite()%></td>
-                            <td><%= e.getDescription()%></td>
-                            <td><%= e.getMarque()%></td>
-                            <td><%= e.getCategorie()%></td>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div class="bg-info" id="page-content-wrapper">
+                <nav class="navbar navbar-expand-lg navbar-light   bg-transparent py-4 px-4">
+                    <div class="container-fluid px-4">
+                        <div class="row my-5">
+                            <div class="col">
+                                <div class="produit_section">
+                                    <div class="produit_tab">
+                                        <i class="fas fa-align-left text-dark primary-text fs-4 me-3" id="menu-toggle"></i>
+                                        <h1>Nos Produits</h1>
+
+                                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                                aria-expanded="false" aria-label="Toggle navigation">
+                                            <span class="navbar-toggler-icon"></span>
+                                        </button>
+                                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                                                <li class="nav-item dropdown">
 
 
-                            <td><a href="./DeleteProduit?id=<%=e.getId()%> ">Supprimer</a></td>
-                        </tr>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="produit_tab_inner">
+                                            <button class="t_btn_tablinks" onclick="produitFunc(event, 'see_produit')"id="t_defaultOpen" >Liste
+                                                <i class="fas fa-info-circle"></i>
+                                            </button>
+                                            <button class="t_btn_tablinks" onclick="produitFunc(event, 'add_produit')">Add
+                                                <i class="fas fa-plus-circle"></i>
+                                            </button>
 
-                        <%}%>
-                    </tbody>
+                                        </div>
+                                    </div>
+                                    <!-- view produit section start  ======================================-->
+                                    <div id="see_produit" class="produit_tabcontent">
+                                        <div class="produit_search">
+                                            <input type="text" class="search_input" placeholder="Chercher produit...">
+                                        </div>
+                                        <table>
+                                            <tr>
+                                                <th width="50px">Id</th>
+                                                <th width="100px">Image</th>
+                                                <th width="100px">Nom</th>
+                                                <th width="100px">Designation</th>
+                                                <th width="100px">Prix</th>
+                                                <th width="80px">Unite</th>
+                                                <th width="100px">Description</th>
+                                                <th width="100px">Marque</th>
+                                                <th width="100px">Categorie</th>
+                                                <th width="100px">Supprimer</th>
+                                            </tr>
+                                            <tbody>
+                                                <%
+                                                    ProduitService es = new ProduitService();
+                                                    for (Produit e : es.findAll()) {
+                                                %>
+                                                <tr>
+                                                    <td><%= e.getId()%></td>
+                                                    <td> <img src="<%="images\\" + e.getImage()%>" alt="<%= e.getNom()%>" /></td>
+                                                    <td><%= e.getNom()%></td>
+                                                    <td><%= e.getDesignation()%></td>
+                                                    <td><%= e.getPrix()%></td>
+                                                    <td><%= e.getUnite()%></td>
+                                                    <td><%= e.getDescription()%></td>
+                                                    <td><%= e.getMarque()%></td>
+                                                    <td><%= e.getCategorie()%></td>
 
-                </table>
-            </div>
-            <div id="add_produit" class="produit_tabcontent">
-                <form method="Post" action="ProduitController">
-                    <h2>Formulaire ajouter produit</h2>
-                    <div class="first_last_name">
-                        <span class="f_left">
-                            <label for="fname">Image</label>
-                            <input type="file" id="fname" name="image" required />
-                        </span>
-                        <span class="l_right">
-                            <label for="lname">Nom</label>
-                            <input type="text" id="lname" name="nom" required />
-                            <br />
-                        </span>
+
+                                                    <td><a href="./DeleteProduit?id=<%=e.getId()%> " onclick="return confirm('remove item from produits?')">Supprimer</a></td>
+                                                </tr>
+
+                                                <%}%>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <div id="add_produit" class="produit_tabcontent">
+                                        <form method="Post" action="ProduitController">
+                                            <h2>Ajouter un produit</h2>
+                                            <div class="first_last_name">
+                                                <span class="f_left">
+                                                    <label for="fname">Image</label>
+                                                    <input type="file" id="fname" name="image" required />
+                                                </span>
+                                                <span class="l_right">
+                                                    <label for="lname">Nom</label>
+                                                    <input type="text" id="lname" name="nom" required />
+                                                    <br />
+                                                </span>
+                                            </div>
+                                            <label for="t_address">Designation</label>
+                                            <input type="text" id="t_address" name="designation" required />
+                                            <br />
+                                            <div class="t_city">
+                                                <span class="t_city_left">
+                                                    <label for="t_city">Unite</label>
+                                                    <input type="number" id="t_city" name="unite" required />
+                                                    <br />
+                                                </span>
+                                                <span class="t_city_left">
+                                                    <label for="t_qualification">Prix</label>
+                                                    <input
+                                                        type="number"
+                                                        id="t_qualification"
+                                                        name="prix"
+                                                        required
+                                                        />
+                                                </span>
+                                            </div><br />
+                                            <div class="t_city">
+
+                                                <span class="t_city_right">
+                                                    <label for="t_state">Description</label>
+                                                    <input type="text" id="t_state" name="description" required />
+                                                    <br />
+                                                </span>
+                                            </div> <br />
+                                            <div class="t_city">
+                                                <span class="t_city_right">
+                                                    <label for="t_state">Marque</label>
+                                                    <select name="marque">
+                                                        <%
+                                                            MarqueService ms = new MarqueService();
+                                                            for (Marque m : ms.findAll()) {
+                                                        %>
+                                                        <option><%= m%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </span>
+
+                                                <span class="t_city_right">
+                                                    <label for="t_state">Categorie</label>
+                                                    <select name="categorie">
+                                                        <%
+                                                            CategorieService cs = new CategorieService();
+                                                            for (Categorie c : cs.findAll()) {
+                                                        %>
+                                                        <option><%= c%></option>
+                                                        <%}%>
+                                                    </select>
+                                                </span>
+                                            </div>
+
+                                            <input type="submit" id="sub_produit_btn"></input>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <label for="t_address">Designation</label>
-                    <input type="text" id="t_address" name="designation" required />
-                    <br />
-                    <div class="t_city">
-                        <span class="t_city_left">
-                            <label for="t_city">Unite</label>
-                            <input type="number" id="t_city" name="unite" required />
-                            <br />
-                        </span>
-                        <span class="t_city_left">
-                    <label for="t_qualification">Prix</label>
-                    <input
-                        type="number"
-                        id="t_qualification"
-                        name="prix"
-                        required
-                        />
-                    </span>
-                    </div><br />
-                    <div class="t_city">
-                        
-                        <span class="t_city_right">
-                            <label for="t_state">Description</label>
-                            <input type="text" id="t_state" name="description" required />
-                            <br />
-                        </span>
-                    </div> <br />
-                    <div class="t_city">
-                        <span class="t_city_right">
-                            <label for="t_state">Marque</label>
-                            <select name="marque">
-                                <%
-                                    MarqueService ms = new MarqueService();
-                                    for (Marque m : ms.findAll()) {
-                                %>
-                                <option><%= m%></option>
-                                <%}%>
-                            </select>
-                        </span>
+                </nav>
 
-                        <span class="t_city_right">
-                            <label for="t_state">Categorie</label>
-                            <select name="categorie">
-                                <%
-                                    CategorieService cs = new CategorieService();
-                                    for (Categorie c : cs.findAll()) {
-                                %>
-                                <option><%= c%></option>
-                                <%}%>
-                            </select>
-                        </span>
-                    </div>
 
-                    <input type="submit" id="sub_produit_btn"></input>
-                </form>
             </div>
-    </body>
-    <script src="produit.js" type="text/javascript"></script>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+                                                var el = document.getElementById("wrapper");
+                                                var toggleButton = document.getElementById("menu-toggle");
+
+                                                toggleButton.onclick = function () {
+                                                    el.classList.toggle("toggled");
+                                                };
+    </script>
+</body>
+<script src="produit.js" type="text/javascript"></script>
 </html>

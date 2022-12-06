@@ -4,10 +4,22 @@
     Author     : hp
 --%>
 
+<%@page import="entities.Categorie"%>
+<%@page import="service.CategorieService"%>
+<%@page import="entities.Marque"%>
+<%@page import="service.MarqueService"%>
+<%@page import="entities.Client"%>
+<%@page import="service.PanierService"%>
+<%@page import="entities.Panier"%>
 <%@page import="entities.Produit"%>
 <%@page import="service.ProduitService"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+
+    Client c = (Client) session.getAttribute("client");
+
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -31,7 +43,7 @@
             .hidden{
                 display: none;
             }
-           
+
             .product-box{
                 background-color: #f1f1f1;
                 text-align: center;
@@ -53,7 +65,7 @@
             }
             .product-desc button{
                 padding: 5px 15px;
-                border-radius: 3px;
+                border-radius: 7px;
                 border: 1px solid #c1c1c1;
                 font-weight: bold;
                 color: #2868AF;
@@ -115,79 +127,160 @@
                 width: 100%;
             }
             body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
 
-.topnav {
-  overflow: hidden;
-  background-color:  #000000;
-}
+            .topnav {
+                overflow: hidden;
+                background-color:  #000000;
+            }
 
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
+            .topnav a {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
 
-.topnav a:hover {
-  background-color: #B0C4DE;
-  color: black;
-}
+            .topnav a:hover {
+                background-color: #B0C4DE;
+                color: black;
+            }
 
-.topnav a.active {
-  background-color:#B0C4DE;
-  color: white;
-}
-body {
-  background-image: url('bluess.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;  
-  background-size: cover;
-}
-</style>
+            .topnav a.active {
+                background-color:#B0C4DE;
+                color: white;
+            }
+            body {
+                background-image: url('bluess.jpg');
+                background-repeat: no-repeat;
+                background-attachment: fixed;  
+                background-size: cover;
+            }
+            .fa_custom {
+                color: 
+                    #0099CC;
+                margin-right:-150rem;
+            }
+            .categorie_search {
+                 color: white;
+                 
+                 }
+            
         </style>
+
     </head>
     <body>
-        <div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
-  
-  
-</div>
+        <form action="AjouterPanier" method="POST">
+            <div class="topnav">
 
-<div style="padding-left:16px">
-    
-  <h2 style="font-size:30px; color:white; margin:10px;">Our products</h2>
+                <%!int n = 0;%>
+                <%                PanierService pn = new PanierService();
+                    int o = 0;
+                    if (pn.findAll() != null) {
+                        for (Panier pi : pn.findAll()) {
 
-</div>
-        
+                            if (pi.getClient().getId() == c.getId()) {
+                                o++;
+                            }
+                        }
+                        n = o;
+                    }
+                %>
+                <a href="panier.jsp"> <i class="fa fa-shopping-cart fa_custom fa-2x"> <%= n%></i></a>
+
+                <a class="active" href="#home">Home</a>
+                <a href="#news">News</a>
+                <a href="#contact">Contact</a>
+                <a href="#about">About</a>
+
+
+
+            </div>
+        </form>         
+
+        <form action="FiltreMarque.jsp" method="">
+            <div class="categorie_search">
+                <span class="t_city_right">
+                    <label for="t_state">Marque</label>
+                    <select name="marque">
+                        <%
+                            MarqueService ms = new MarqueService();
+                            for (Marque m : ms.findAll()) {
+                        %>
+                        <option><%= m%></option>
+                        <%}%>
+
+                    </select>
+                </span>
+                <button class="t_btn_tablinks" >
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+        <form action="FiltreCategorie.jsp" method="">
+            <div class="categorie_search">
+                <span class="t_city_right">
+                    <label for="t_state">Categorie</label>
+                    <select name="categorie">
+                        <%
+                            CategorieService cr = new CategorieService();
+                            for (Categorie ch : cr.findAll()) {
+                        %>
+                        <option><%= ch%></option>
+                        <%}%>
+
+                    </select>
+                </span>
+                <button class="t_btn_tablinks" >
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+        <form action="FiltrePrix.jsp" method="">
+            <div class="categorie_search">
+                <span class="t_city_right">
+                    <label for="t_state">Prix</label>
+                    <select name="prix">                    
+                        <option>inferieur a 3000</option>
+                        <option>entre 3000 et 5000</option>
+                        <option>superieur a 5000</option>
+
+                    </select>
+                </span>
+                <button class="t_btn_tablinks" >
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+
+        <div style="padding-left:16px">
+
+            <h2 style="font-size:30px; color:white; margin:10px;">Our products</h2>
+        </div>
         <br><br>
-     
-        <div id="product-slider"><%
-            ProduitService ui = new ProduitService();
-            List<Produit> pr = ui.findAll();
-            for (int i = 0; i < pr.size(); i++) {
-        %>
-       
+
+        <div id="product-slider">
+
+            <%
+                ProduitService ui = new ProduitService();
+                List<Produit> pr = ui.findAll();
+                for (int i = 0; i < pr.size(); i++) {
+            %>
             <div class="product-box">
-               <img src="<%="images\\" + pr.get(i).getImage()%>" alt="<%= pr.get(i).getNom()%>" />
+                <img src="<%="images\\" + pr.get(i).getImage()%>" alt="<%= pr.get(i).getNom()%>" />
                 <div class="product-desc">
-                    <h5><%= pr.get(i).getNom()%></h5>
-                    <h5><%=pr.get(i).getDescription() %></h5>
+                    <h5><%= pr.get(i).getCategorie().getNom()%>: <%= pr.get(i).getNom()%></h5>
+                    <h5><%=pr.get(i).getMarque().getNom()%></h5>
                     <h5><%=pr.get(i).getPrix()%> </h5>
-                    <button>ADD TO CART</button>
-                
+                    <td><a href="./AjouterPanier?id=<%= pr.get(i).getId()%>&client=<%= c.getId()%> ">Add To Cart </a></td>
+                    <p></p>
                 </div>
             </div><%}%>
-
-
         </div>
-     
-</body>
+
+    </body>
 </html>

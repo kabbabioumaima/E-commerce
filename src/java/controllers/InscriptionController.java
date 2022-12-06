@@ -43,9 +43,9 @@ public class InscriptionController extends HttpServlet {
         String email = request.getParameter("email");
         String password = Util.md5(request.getParameter("password"));
 
-        cl.create(new Client(nom, prenom, tele, adresse, email, password));
+        cl.create(new Client(nom, prenom, tele, adresse, email, password,"Client"));
 
-       response.sendRedirect("loginClient.jsp?email="+email);
+       response.sendRedirect("login.jsp?email="+email);
 //Source : www.exelib.net
     }
 

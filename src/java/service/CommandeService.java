@@ -15,7 +15,7 @@ import util.HibernateUtil;
 
 /**
  *
- * @author hp
+ * @author kabbabi
  */
 public class CommandeService implements IDao<Commande>{
 
@@ -118,5 +118,25 @@ public class CommandeService implements IDao<Commande>{
         }
         return commandes;
     }
-    
+    public List<Commande> findByEtat(String etat) {
+        Session s = null;
+        Transaction tx = null;
+        List<Commande> commandes = null;
+        try {
+            s = HibernateUtil.getSessionFactory().openSession();
+            tx = s.beginTransaction();
+            commandes = ((List<Commande>) s.createQuery("select a from Commande a where a.etat = :etat").setParameter("etat", etat).list());
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            if (s != null) {
+                s.close();
+            }
+        }
+        return commandes;
+
+    }
 }

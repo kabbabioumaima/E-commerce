@@ -6,6 +6,8 @@
 package service;
 
 import dao.IDao;
+import entities.Categorie;
+import entities.Marque;
 import entities.Produit;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -119,5 +121,69 @@ public class ProduitService implements IDao<Produit>{
         }
         return produits;
     }
-    
+       
+        public List<Produit> findBetweenPrix(int d1, int d2) {
+        Session s = null;
+        Transaction tx = null;
+        List<Produit> produits = null;
+        try {
+            s = HibernateUtil.getSessionFactory().openSession();
+            tx = s.beginTransaction();
+            produits = ((List<Produit>) s.createQuery("select p from Produit p where p.prix between :d1 and :d2 ").setParameter("d1", d1).setParameter("d2", d2).list());
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            if (s != null) {
+                s.close();
+            }
+        }
+        return produits;
+
+    }
+      
+ public List<Produit> getByMarque(Marque marque) {
+        Session s = null;
+        Transaction tx = null;
+        List<Produit> produits = null;
+        try {
+            s = HibernateUtil.getSessionFactory().openSession();
+            tx = s.beginTransaction();
+            produits = ((List<Produit>) s.createQuery("select p from Produit p where p.marque = :marque ").setParameter("marque", marque).list());
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            if (s != null) {
+                s.close();
+            }
+        }
+        return produits;
+
+    }
+ public List<Produit> getByCategorie(Categorie categorie) {
+        Session s = null;
+        Transaction tx = null;
+        List<Produit> produits = null;
+        try {
+            s = HibernateUtil.getSessionFactory().openSession();
+            tx = s.beginTransaction();
+           produits = ((List<Produit>) s.createQuery("select p from Produit p where p.categorie = :categorie ").setParameter("categorie", categorie).list());
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            if (s != null) {
+                s.close();
+            }
+        }
+        return produits;
+
+    }
 }

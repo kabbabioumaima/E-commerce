@@ -17,10 +17,11 @@ public class Admin extends User {
     public Admin() {
     }
 
-    public Admin(String email, String password) {
-        super(email, password);
+    public Admin(String email, String password, String role) {
+        super(email, password, role);
     }
 
+    
     @Override
     public String toString() {
         return "Admin{" + '}';

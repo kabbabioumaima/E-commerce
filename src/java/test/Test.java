@@ -8,9 +8,11 @@ package test;
 import entities.Admin;
 import entities.Categorie;
 import entities.Client;
+import entities.Commande;
 import entities.LigneCommande;
 import entities.Marque;
 import entities.Produit;
+import java.util.Date;
 import java.util.Iterator;
 import org.hibernate.Hibernate;
 import service.AdminService;
@@ -20,7 +22,9 @@ import service.CommandeService;
 import service.FactureService;
 import service.LigneCommandeService;
 import service.MarqueService;
+import service.PanierService;
 import service.ProduitService;
+import service.UserService;
 import util.HibernateUtil;
 import util.Util;
 
@@ -31,7 +35,7 @@ import util.Util;
 public class Test {
 
     public static void main(String[] args) {
-        //HibernateUtil.getSessionFactory().openSession();
+        HibernateUtil.getSessionFactory().openSession();
         AdminService ad = new AdminService();
         CategorieService ca = new CategorieService();
         ClientService cl = new ClientService();
@@ -72,6 +76,17 @@ public class Test {
          pr.create(new Produit("il","Toshiba",9000,"logos.jpg",4,"corei7",mr.findById(1),ca.findById(2)));
          pr.create(new Produit("legof","Dell",4000,"logos.jpg",4,"corei7",mr.findById(1),ca.findById(2)));
          pr.create(new Produit("gof","Dell",8000,"logos.jpg",4,"corei7",mr.findById(1),ca.findById(2)));*/
-       // cl.create(new Client("kabbabi1", "salma1", "72955", "zohor", "client12@gmail.com",Util.md5( "0011")));
+        //cl.create(new Client("kabbabi1", "salma1", "72955", "zohor", "client12@gmail.com",Util.md5( "0011")));
+       /* cm.create(new Commande(new Date(),cl.findById(4),ft.findById(1),"Annuler"));
+        cm.create(new Commande(new Date(),cl.findById(4),ft.findById(1),"Approuver"));
+        cm.create(new Commande(new Date(),cl.findById(4),ft.findById(1),"Livrer"));
+        cm.create(new Commande(new Date(),cl.findById(4),ft.findById(1),"Livrer"));*/
+        PanierService pn = new PanierService();
+        UserService us = new UserService();
+      /*  cl.create(new Client("kabbabi1", "salma1", "72955", "zohor", "oumaima@gmail.com",Util.md5( "0011"),"Client"));
+       cl.create(new Client("kabbabi1", "salma1", "72955", "zohor", "amal@gmail.com",Util.md5( "0012"),"Client"));
+       ad.create(new Admin("admin@gmail.com",Util.md5("0000"),"Admin"));*/
+       
+       
     }
 }

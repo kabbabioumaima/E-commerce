@@ -119,23 +119,7 @@ public class UserService implements IDao<User>{
         }
         return users;
     }
-     public List<String> findProfils() {
-        List<String> roles = null;
-        Session session = null;
-        Transaction tx = null;
-        try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            tx = session.beginTransaction();
-            roles  =  session.getNamedQuery("findProfils").list();
-            tx.commit();
-        } catch (HibernateException e) {
-            if(tx != null)
-                tx.rollback();
-        } finally {
-            session.close();
-        }
-        return roles;
-    }
+     
      public User findByEmail(String email){
           Session s = null;
         Transaction tx = null;
@@ -160,4 +144,6 @@ public class UserService implements IDao<User>{
          
          
      }
+     
+    
 }
