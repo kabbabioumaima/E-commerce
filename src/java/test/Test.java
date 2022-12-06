@@ -36,7 +36,16 @@ public class Test {
 
     public static void main(String[] args) {
        // HibernateUtil.getSessionFactory().openSession();
-      
+        AdminService ad = new AdminService();
+        CategorieService ca = new CategorieService();
+        ClientService cl = new ClientService();
+        CommandeService cm = new CommandeService();
+        FactureService ft = new FactureService();
+        LigneCommandeService lc = new LigneCommandeService();
+        MarqueService mr = new MarqueService();
+        ProduitService pr = new ProduitService();
+     
+        UserService us = new UserService();
       
        
        
